@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/16.9.0-alpha.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.bootcss.com/react-dom/16.9.0-alpha.0/umd/react-dom.production.min.js"></script>
+    <style>
+        .btn:hover {
+            background-color: cornflowerblue;
+            color:#fff;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="btn" id="btn-js">Send by Vanilla</button>
+    <ul id="list-box"></ul>
+    <hr>
+    <button id="btn-jq">Send by jQuery</button>
+    <hr>
+    <div id="app">
+        <button @click="send">Send by Vue</button>
+        <ul>
+            <li v-for="(item,n) in list" :key="n">{{item}}</li>
+        </ul>
+    </div>
+    <hr>
+    <div id="root">
+    </div>
+    <script>
+        // 捕获执行过程抛出的异常
+        // a-1
+        function print(msg) {
+            console.log(msg);
+        }
+
+        document.getElementById("btn-js").addEventListener("click", function () {
+            print("vanilla click");
+            document.getElementById("list-box").innerHTML = `
+                <li>hahaha</li>
+            `;
+        });
+
+        $("#btn-jq").click(function () {
+            console.log("jquery click");
+        });
+
+        let vm = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    list: [0,1,2,3,4]
+                };
+            },
+            methods: {
+                send() {
+                    console.log("vue click");
+                    this.list.push(5);
+                }
+            }
+        });
+
+        let App = React.createElement("button", {
+            onClick() {
+                console.log("react click");
+            }
+        }, "Send by React");
+
+        ReactDOM.render(App, document.getElementById("root"));
+
+        // 条件断点
+        for (let i=0;i<1000;i++) {
+            let div=document.createElement("div");
+            $(div).click(function () {
+                console.log(i);
+            });
+        }
+    </script>
+</body>
+
+</html>
