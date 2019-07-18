@@ -35,16 +35,17 @@
 
             // debug(fn) undebug(fn)
             function sum(a, b) {
+                // 条件断点
+                for (let index = 1; index <= 1e9; index++) {
+                    // console.log(index);
+                }
                 let result = a + b; // DevTools pauses on this line.
                 return result;
             }
 
             sum(1, 2)
 
-            // 条件断点
-            for (let index = 1; index <= 1e3; index++) {
-                console.log(index);
-            }
+
 
             // 事件监听器断点
             btn.addEventListener("click", () => {
