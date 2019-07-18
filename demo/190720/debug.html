@@ -6,22 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>debug</title>
+    <link rel="stylesheet" href="./css/index.css" />
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js" defer></script>
 </head>
 
 <body>
+    <h1 id="title">我是待 js 修改的节点</h1>
+    <button id="btn">点我玩一年</button>
     <script>
-        
-        // 已经捕获的错误
-        try {
-            throw new Error("已经捕获的错误");
-        } catch (e) {
+        window.addEventListener("DOMContentLoaded", () => {
+            title.style.color = "#020";
+            // dom 断点
+            setTimeout(() => {
+                title.style.color = "#080";
+                document.body.append("我是新增节点");
+            }, 100);
 
-        }
+            // xhr 断点 DevTools 会在 XHR 调用 send() 的代码行暂停
+            fetch("/")
+                .then(res => {
+                    return res.text();
+                })
+                .then(data => {
+                    console.log(data.length);
+                });
 
-        // 未捕获的错误
-        throw new Error("未捕获的错误");
+            $.ajax("/");
+
+            // debug(fn) undebug(fn)
+            function sum(a, b) {
+                let result = a + b; // DevTools pauses on this line.
+                return result;
+            }
+
+            sum(1, 2)
+
+            // 条件断点
+            for (let index = 1; index <= 1e3; index++) {
+                console.log(index);
+            }
+
+            // 事件监听器断点
+            btn.addEventListener("click", () => {
+                btn.innerText = "介系你没有玩过的船新版本";
+            });
 
 
+            // 已经捕获的错误
+            try {
+                throw new Error("已经捕获的错误");
+            } catch (e) {
+
+            }
+
+            // 未捕获的错误
+            throw new Error("未捕获的错误");
+        });
     </script>
 </body>
 

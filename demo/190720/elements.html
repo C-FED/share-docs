@@ -34,8 +34,6 @@
     <div id="root">
     </div>
     <script>
-        // 捕获执行过程抛出的异常
-        // a-1
         function print(msg) {
             console.log(msg);
         }
@@ -73,14 +71,6 @@
         }, "Send by React");
 
         ReactDOM.render(App, document.getElementById("root"));
-
-        // 条件断点
-        for (let i=0;i<1000;i++) {
-            let div=document.createElement("div");
-            $(div).click(function () {
-                console.log(i);
-            });
-        }
     </script>
 </body>
 
